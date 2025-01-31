@@ -13,23 +13,26 @@ export default function DeleteSiteForm({ siteName }: { siteName: string }) {
   const router = useRouter();
   return (
     <form
-      action={async (data: FormData) =>
-        window.confirm("Are you sure you want to delete your site?") &&
-        deleteSite(data, id, "delete")
-          .then(async (res) => {
-            if (res.error) {
-              toast.error(res.error);
-            } else {
-              va.track("Deleted Site");
-              router.refresh();
-              router.push("/sites");
-              toast.success(`Successfully deleted site!`);
-            }
-          })
-          .catch((err: Error) => toast.error(err.message))
+    action={async (data: FormData) => {
+      const confirmed = window.confirm("Are you sure you want to delete your site?");
+      if (!confirmed) return; // Se o usuário não confirmar, não faz nada
+      
+      try {
+        const res = await deleteSite(data, id, "delete");
+        if (res.error) {
+          toast.error(res.error);
+        } else {
+          va.track("Deleted Site");
+          router.refresh();
+          router.push("/sites");
+          toast.success(`Successfully deleted site!`);
+        }
+      } catch (error) {
+        toast.error("An error occurred while deleting the site.");
       }
-      className="rounded-lg border border-red-600 bg-white dark:bg-black"
-    >
+    }}
+    className="rounded-lg border border-red-600 bg-white dark:bg-black"
+  >
       <div className="relative flex flex-col space-y-4 p-5 sm:p-10">
         <h2 className="font-cal text-xl dark:text-white">Delete Site</h2>
         <p className="text-sm text-stone-500 dark:text-stone-400">
