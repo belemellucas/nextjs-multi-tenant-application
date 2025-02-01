@@ -10,12 +10,14 @@ import {
   text,
   timestamp,
   uniqueIndex,
+  uuid
 } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
-  id: text("id")
+ /* id: text("id")
     .primaryKey()
-    .$defaultFn(() => createId()),
+    .$defaultFn(() => createId()), */
+  id: uuid("id").defaultRandom().primaryKey(),
   name: text("name"),
   // if you are using Github OAuth, you can get rid of the username attribute (that is for Twitter OAuth)
   username: text("username"),
