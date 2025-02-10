@@ -17,7 +17,10 @@ export const users = pgTable("users", {
  /* id: text("id")
     .primaryKey()
     .$defaultFn(() => createId()), */
-  id: uuid("id").defaultRandom().primaryKey(),
+  id: text("id")
+ 
+  .primaryKey()
+  .$defaultFn(() => createId()),
   name: text("name"),
   // if you are using Github OAuth, you can get rid of the username attribute (that is for Twitter OAuth)
   username: text("username"),
@@ -104,9 +107,12 @@ export const accounts = pgTable(
 export const sites = pgTable(
   "sites",
   {
-    id: text("id")
+  /*  id: text("id")
       .primaryKey()
-      .$defaultFn(() => createId()),
+      .$defaultFn(() => createId()),*/
+    id: text("id")
+    .primaryKey()
+    .$defaultFn(() => createId()),
     name: text("name"),
     description: text("description"),
     logo: text("logo").default(
