@@ -15,6 +15,13 @@
       "when": 1738898826178,
       "tag": "0001_ambiguous_the_professor",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1739241945270,
+      "tag": "0002_fixed_white_queen",
+      "breakpoints": true
     }
   ]
 }
